@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发广播</title>
+    <script src="/js/sockjs.min.js"></script>
+    <script src="/js/stomp.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+    <input type="text" id="out">
+    <input type="button" onclick="out()" value="发广播">
+    <div id = "outdiv"></div>
+</body>
+
+<script type="text/javascript">
+    var stompClient = null;
+
+    /**
+     * 初始化链接
+     */
+    $(function() {
+        //在MyWebSocket.java内配置的url
+        var socket = new SockJS('/broadcast');
+        stompClient = Stomp.over(socket);
+        /*stompClient.connect({}, function(frame) {
+            console.log(frame);
+            //在WebSocketController.java内@SendTo的url
+            stompClient.subscribe('/topic/get', function(respnose){
+                console.log(respnose);
+                var mag = JSON.parse(respnose.body)
+                $('#outdiv').text(mag.message + mag.str);
+            });
+        });*/
+    })
+
+    /**
+     * 发送消息
+     */
+    function out() {
+        var mag = $('#out').val();
+        //在WebSocketController.java内@MessageMapping的url
+        stompClient.send("/socket/welconee", {}, JSON.stringify({ 'message': mag, 'str' : ':string' }));
+    }
+
+</script>
+</html>

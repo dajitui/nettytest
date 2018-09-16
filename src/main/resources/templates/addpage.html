@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>addAndUpdate</title>
+	<!--使用thymeleaf引入-->
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/addorupdate.js}"></script>
+
+<!--<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/addorupdate.js"></script>-->
+</head>
+<body>
+	<form action="" method="post" id = 'form' th:object="${user}">
+		<input type="hidden" name='id' th:field="*{id}" id='id'/>
+		name : <input type="text" name='name' th:field="*{name}" id = 'name'/><br/>
+		<input type="button" value='提交' onclick="sub()"/>
+	</form>
+</body>
+</html>

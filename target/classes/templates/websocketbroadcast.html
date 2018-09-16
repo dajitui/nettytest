@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接收广播</title>
+    <script src="/js/sockjs.min.js"></script>
+    <script src="/js/stomp.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+    <h4>接收的消息为:</h4>
+    <div id = "message"></div>
+</body>
+
+<script type="text/javascript">
+    var stompClient = null;
+
+    /**
+     * 初始化链接
+     */
+    $(function() {
+        //在MyWebSocket.java内配置的url
+        var socket = new SockJS('/broadcast');
+        stompClient = Stomp.over(socket);
+        //获取广播
+        stompClient.connect({}, function(frame) {
+            console.log(frame);
+            //在WebSocketController.java内@SendTo的url
+            stompClient.subscribe('/topic/get', function(respnose){
+                console.log(respnose);
+                var mag = JSON.parse(respnose.body);
+                $('#message').text(mag.message + mag.str)
+            });
+        });
+    });
+
+</script>
+</html>

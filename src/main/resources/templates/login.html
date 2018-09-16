@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+    <div th:if="${#strings.isEmpty(user)}">不存在</div>
+    <form action="/user/login" mehtod="post" id="form">
+        <input type="text" placeholder="name" name="name"/><br/>
+        <input type="password" placeholder="pwd" name="pwd"/><br/>
+        <input type="hidden" name="type" value="" id="type"/>
+        <input type="button" value="login1" onclick="login('1')"/>
+        <input type="button" value="login2" onclick="login('2')"/>
+    </form>
+
+</body>
+<script>
+function login(type) {
+    var fo = $('#form');
+    $('#type').val(type);
+    fo.submit();
+}
+</script>
+</html>
